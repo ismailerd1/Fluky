@@ -1,0 +1,48 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings</title>
+    <link rel="stylesheet" href="{% static 'account/settings.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+
+        <div class="header">Fluky</div>
+        <a href="{% url 'profile' username=request.user.username %}"> <div class="back_icon"> ← </div> </a>
+
+
+        <div class="sections">
+            <a href="#"><div class="part"><h3>Help</h3></div></a>
+            <hr>
+            <a href="#"><div class="part"><h3>Term of Use</h3></div></a>
+            <hr>
+            <a href="#"><div class="part"><h3>Contact us</h3></div></a>
+            <hr>
+            <a href="#"><div class="part"><h3>Report error</h3></div></a>
+            <hr>
+            <a href="#"><div class="part"><h3>Suggest ideas</h3></div></a>
+            <hr>
+            <a href="{% url 'logging_out' %}"><div class="part"><h3>Log out</h3></div></a>
+            <hr>
+
+        </div>
+
+        <div class="logo"></div>
+
+
+
+    </div>
+</body>
+</html>
+
+
+
+<!-- 
+
+ -->

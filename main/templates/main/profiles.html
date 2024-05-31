@@ -1,0 +1,92 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'main/profiles.css' %}">
+    <title>Fluky | Home</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="logo_nav">
+        <div class="title">Fluky </div>
+    </div>
+
+    <div class="parameters">
+        <button id="f_nav">Sort ↓</button>
+
+        <form method="POST">
+        {% csrf_token %}
+        <input type="text" class="search_area" name="search_query" placeholder="Search profiles...">
+        <button id="f_nav" type="submit">Search</button>
+        </form> 
+
+        <button id="f_nav">Filter</button>
+    </div>
+    <hr>
+    <div class="profiles_sec">
+        <ul>
+            {% if search_profile %}
+                {% for profile in search_profile %}
+                    <a href="{% url 'profile' profile.username %}" id="prof_container">
+                        <img src="{{ profile.customuser.profile_picture.url }}" alt="pp" class="ppimg">
+                        <div class="info">
+                            <h2>{{ profile.username }}</h2>
+                            <p class="userbio_sec">{{ profile.customuser.user_bio }}</p>
+                        </div>
+                    </a>
+                {% endfor %}
+            {% else %}
+                {% for profile in random_profiles %}
+                    
+                        <a href="{% url 'profile' profile.username %}" id="prof_container">
+                            <img src="{{ profile.customuser.profile_picture.url }}" alt="pp" class="ppimg">
+                            <div class="info">
+                                <h2>{{ profile.username }}</h2>
+                                <p class="userbio_sec">{{ profile.customuser.user_bio }}</p>
+                            </div>
+                        </a>
+                    
+                {% endfor %}
+            {% endif %}
+        </ul>
+            </div>
+        </div>
+        <hr>
+        
+    </div>
+    <br><br><br><br><br>
+
+</body>
+<footer>
+    <a href="{% url 'random_chat_enter' %}">❃</a>
+    <a href="{% url 'mychats' %}">❉</a>
+    <a href="{% url 'home' %}">✶</a>
+    <a href="#">✻</a>
+    <a href="{% url 'profile' request.user.username %}">★</a>
+</footer>
+</html>
+
+
+
+<!-- {% comment %} <hr>
+<div id="prof_container">
+    <img src="#" alt="pp">
+    <div class="info">
+        <h3>John Doe</h3>
+        <h5>some info about him</h5>
+    </div>
+</div>
+<hr>
+<div id="prof_container">
+    <img src="#" alt="pp">
+    <div class="info">
+        <h3>John Doe</h3>
+        <h5>some info about him</h5>
+    </div>
+</div>
+<hr> {% endcomment %} -->
+

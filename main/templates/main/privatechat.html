@@ -1,0 +1,180 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Private chat</title>
+    <link rel="stylesheet" href="{% static 'main/privatechat.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="header">
+        <div class="back_icon">←</div>
+        <h1 class="usernamm">{{ target_user.username }}</h1>
+        <div class="call_icon"></div>
+        <div class="videocall_icon"></div> {% comment %} (can use Agora sdk for video call later) {% endcomment %}
+        <div class="setting_icon"></div>
+    </div>
+
+
+    <div id="chat-messages">
+        {% for message in messages %}
+        <div class="message {% if message.sender == request.user %}sent{% else %}received{% endif %}">
+            <strong>{{ message.sender }}:</strong> {{ message.content }} <br> {{ message.timestamp }}
+        </div>
+        {% endfor %}   
+        
+    </div>
+    <br><br><br><br><br><br><br><br>
+   
+    <form id="message_form">
+        <div class="transparent" id="emojis">:)</div>
+        <input type="text" id="message_input" placeholder="Mesajınızı buraya yazın...">
+        
+        <input type="file" id="hidvoice_btn" accept="audio/*" >
+        <div class="transparent" id="voice_btn" onclick="showvoicesend()"></div>
+        <div class="transparent" id="pics_btn"></div>
+        <button type="submit" id="send_btn"  style="display: none;">Send</button>
+    </form>
+    
+
+    <script>
+
+        const chatMessages = document.getElementById('chat-messages');
+        const messageForm = document.getElementById('message_form');
+        const messageInput = document.getElementById('message_input');
+        const voice_btn = document.getElementById('voice_btn');
+        const hidvoice_btn = document.getElementById('hidvoice_btn');
+        
+        // WebSocket bağlantısı oluştur
+        const chatSocket = new WebSocket(
+            'ws://' + window.location.host +
+            '/ws/chat/{{ room_name }}/'  // Odanın adı
+        );
+        
+        chatSocket.binaryType = 'arraybuffer';
+
+        function showvoicesend(){
+            hidvoice_btn.style.display= 'block'
+        }
+
+
+        messageForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const message = messageInput.value.trim();
+            if (message !== '') {
+                // WebSocket üzerinden sunucuya mesajı gönder
+                chatSocket.send(JSON.stringify({
+                    'message': message,
+                    'room_name': '{{ room_name }}',  // Odanın adını gönder
+                    'receiver_username': '{{ target_username }}',
+                }));
+                // Mesajı gönderdikten sonra giriş alanını temizle
+                messageInput.value = '';
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+        });
+        hidvoice_btn.addEventListener('change', function(event) {
+            const audioFile = event.target.files[0];
+            if (audioFile) {
+                sendAudioFile(audioFile);
+            }
+        });
+
+        // Ses dosyası gönderme işlevi
+        function sendAudioFile(file) {
+        const reader = new FileReader();
+
+         reader.onload = function(event) {
+        const arrayBuffer = event.target.result;
+        // Ses dosyasını binary formatında gönder
+        chatSocket.send(arrayBuffer);
+        };
+
+        reader.readAsArrayBuffer(file);
+        }
+
+
+
+
+        chatSocket.onmessage = function(e) {
+            if (typeof e.data === 'string'){ 
+                const data = JSON.parse(e.data);
+                const messageElement = document.createElement('div');
+                messageElement.innerText = data.message;
+                messageElement.classList.add('message');
+                if (data.sender_username === '{{ request.user.username }}') {
+                    messageElement.classList.add('sent');
+                } 
+                else {
+                    messageElement.classList.add('received');
+                }
+                messageElement.innerHTML = `<strong>${data.sender_username}:</strong> ${data.message} <br> ${data.timestamp}`;
+                chatMessages.appendChild(messageElement);}
+            else{
+                
+        // Alınan ses dosyasını bir <audio> elemanına atayarak oynat
+                const audioBlob = new Blob([e.data], { type: 'audio/mp3' });
+                const audioUrl = URL.createObjectURL(audioBlob);
+
+                const audioElement = document.createElement('audio');
+                audioElement.src = audioUrl;
+                audioElement.controls = true;
+                audioElement.controlsList = 'nodownload noplaybackrate';
+
+                const audioMessageElement = document.createElement('div');
+                audioMessageElement.classList.add('message', 'sent');
+        
+                // Ses dosyasını `div` elementine ekleyin
+                audioMessageElement.appendChild(audioElement);
+        
+                // `div` elementini `chatMessages` içerisine ekleyin
+                chatMessages.appendChild(audioMessageElement);
+          };
+
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+            
+        
+        //bundan sonrası ikon paketi
+        
+        const icons = document.querySelectorAll('.transparent');
+        const send_btn = document.querySelector('#send_btn');
+        
+
+        messageInput.addEventListener('input', function() {
+        if (messageInput.value.trim() === '') {
+            icons.forEach(icon => {
+            icon.style.display = 'block'; // Eğer input boşsa ikonları göster
+            });
+            send_btn.style.display ='none';
+        }   
+        else {
+        icons.forEach(icon => {
+            icon.style.display = 'none'; // Eğer input doluysa ikonları gizle
+            hidvoice_btn.style.display = 'none'
+        });
+        send_btn.style.display ='block';
+        }
+
+
+});
+        document.querySelector('.back_icon').addEventListener('click',function(){
+            window.history.back();
+        })
+
+
+    </script>
+</body>
+</html>
+
+
+{% comment %} {% if message.is_seen %}
+<small>seen</small>
+{% else %}
+<small>unseen</small>
+{% endif %} {% endcomment %}

@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'account/login.css'%}">
+    <title>Fluky|Login</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="greeting">
+    <h1 >Welcome again</h1>
+    <h1 >Log in and start fun!</h1>
+    </div>
+    <div class="myform">
+    {% if error %} 
+    <div class="erroralrt">
+        <h2>username or password is uncorrect!</h2>
+    </div>
+    {% endif %} 
+    <form action="{% url 'login' %}" method="POST">
+        {% csrf_token %}
+    <label for="username" id="labels">Username:</label>
+    <input type="text" name="username" id="inputs" placeholder="Enter your username">
+    <br><br>
+    <label for="password" id="labels">Password:</label>
+    <input type="password" name="password" id="inputs" placeholder="Enter your password">
+    <br><br>
+    <input type="submit" value='Log in'  id="logbtn">
+    </form>
+    <br><br><br>
+    <div>
+        <a href="{% url 'register' %}" id="register_btn">Register</a>
+    </div>
+    </div>
+
+</body>
+</html>

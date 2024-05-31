@@ -1,0 +1,102 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: "Cabin", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: weight;
+    font-style: normal;
+    font-variation-settings:
+      "wdth" 100;
+}
+body{
+    background-color: rgb(110, 95, 117) ;
+    background-image: url(bg_img.jpeg);
+    background-size: cover;
+}
+.header{
+    width: 100%;
+    height: 4.2vw;
+    background-color: blueviolet;
+    display: flex;
+    align-items: center;
+}
+.title{
+    font-weight: bolder;
+    font-size: 2.5vw;
+    color: black;
+    justify-content: center;
+    text-align: center;
+    flex-grow: 1;
+}
+.back_icon{
+    height: 2.5vw;
+    width: 2.5vw;
+    border-radius: 1.7vw;
+    background-color: rgb(142, 142, 142);
+    margin-top: 0.1vw;
+    margin-right: 0.8vw;
+    margin-left: 0.8vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    left: 0.8vw;
+}
+
+
+.sec1{
+    margin-top: 5%;
+    text-align: center;
+    font-size: 3vw;
+    color: rgb(188, 0, 235);
+}
+
+.intro{
+    color: rgb(139, 0, 12);
+    margin-top: 15%;
+    text-align: center;
+    font-size: 2vw;
+}
+
+.start_btn{
+    color: rgb(189, 23, 23);
+    border: 0.1vw solid aliceblue;
+    border-radius: 0.8vw;
+    font-size: 1.7vw;
+    text-decoration: none;
+    padding: 0.4vw;
+    position: absolute;
+    bottom: 20%;
+    left: 45%;
+}
+
+
+
+
+
+
+
+
+
+
+
+footer{
+    position: fixed;
+    bottom: 0;
+    background-color: blueviolet;
+    height: 2.5vw;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+}
+footer > * {
+    margin: 0.8vw;
+    color: black;
+}
+a:active{
+    color: black;
+}
+
+
+

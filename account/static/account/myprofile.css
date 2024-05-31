@@ -1,0 +1,273 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: "Cabin", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: weight;
+    font-style: normal;
+    font-variation-settings:
+      "wdth" 100;
+
+}
+
+body{
+    background-color: rgb(183, 183, 255);
+    color: black;
+}
+.setting_icon{
+    background-color: black;
+    color: aliceblue;
+    position: absolute;
+    top: 0.5em;
+    right: 0.5em;
+    width: 2em;
+    height: 2em;
+    border-radius: 1em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+
+ }
+
+.pp{
+    max-width: 100%;
+    height: 15em;
+    background-color:rgba(186,186,186,255);
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+.pp1{
+    
+    height: 15em;
+
+}
+
+.update_btn{
+    background-color: rgb(56, 195, 226);
+    width: 7em;
+    height: 1.5em;
+    font-size: 1.2em;
+    border-radius: 2em;
+    text-wrap: nowrap;
+    position: relative;
+    position: absolute;
+    bottom: 1.7em;
+    right: 0;
+    
+}
+
+.delete_btn{
+    background-color: rgb(56, 195, 226);
+    width: 7em;
+    height: 1.5em;
+    font-size: 1.2em;
+    border-radius: 2em;
+    text-wrap: nowrap;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+.update_sec{
+    display: none;
+    position: absolute;
+    right: 0.5em;
+    bottom: 2em;
+}
+
+.custom_label{
+    background-color: rgb(56, 195, 226);
+    font-size: 1.5em;
+    padding: 0.2em;
+    border-radius: 0.5em;
+    margin-right: 0.5em;
+
+
+}
+
+.sub_btn{
+    background-color: rgb(56, 195, 226);
+    font-size: 1.2em;
+    border-radius: 1.5em;
+    width: 3.5em;
+    height: 2em;
+}
+
+
+
+
+#hrs{
+    border-width: 0.01em;
+    border-style: solid;
+    border-color: rgb(62, 62, 62);
+}
+.first_sec{
+    display:flex;
+    justify-content: space-around;
+    background-color: blueviolet;
+    padding: 0.3em;
+}
+.story_sec{
+    background-color: black;
+    border-radius: 2em;
+    width: 3em;
+    height: 3em;
+    margin: 0.2em;
+}
+.tex{
+    text-align: center;
+}
+.edit_icon{
+    width: 3em;
+    height: 3em;
+    background-color: red;
+    border-radius: 3em;
+    margin: 0.2em;
+
+}
+.share_icon{
+    width: 3em;
+    height: 3em;
+    background-color: purple;
+    border-radius: 3em;
+    margin: 0.2em;
+}
+
+.chat_link{
+    background-color: #807d62;
+    height: 3em;
+    width: 3em;
+    border-radius: 3em;
+  
+}
+
+.about{
+    display: block;
+    margin: 2em;
+    margin-top: 3em;
+    font-weight: bold;
+    text-indent: 2em ;
+}
+.mytags{
+    margin: 1em;
+    margin-top: 4em;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+
+.hidden_about{
+    display: none;
+    margin: 2em;
+    font-weight: bold;
+    text-indent: 2em;
+}
+.hidden_mytags{
+    margin: 1em;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+#input_area{
+    background-color: rgb(183, 183, 255); 
+    border-width: 0.2em;
+    border-radius: 0.5em;
+    border-color: black;
+    font-weight: bold;
+    text-indent: 2em;
+    padding: 1em;
+    width: 80%;
+    height:20em;
+    resize: none;
+
+    
+}
+#input_area::-webkit-scrollbar {
+    width: 0.5em; /* Çubuğun genişliği */
+    
+}
+
+#input_area::-webkit-scrollbar-track {
+    background:rgb(183, 183, 255); /* Çubuğun arkası */
+}
+
+#input_area::-webkit-scrollbar-thumb {
+    background: #000000; /* Kaydırma kolu rengi */
+}
+
+#input_area::-webkit-scrollbar-thumb:hover {
+    background: #000000; /* Kaydırma kolu rengi (üzerine gelindiğinde) */
+}
+
+
+#tag_area{
+    background-color: rgb(183, 183, 255); 
+    border-width: 0.2em;
+    border-radius: 0.5em;
+    border-color: black;
+    font-weight: bold;
+    text-indent: 2em;
+    padding: 1em;
+    width: 80%;
+    height:15em;
+    resize: none;
+}
+#tag_area::-webkit-scrollbar {
+    width: 0.5em; /* Çubuğun genişliği */
+    
+}
+
+#tag_area::-webkit-scrollbar-track {
+    background:rgb(183, 183, 255); /* Çubuğun arkası */
+}
+
+#tag_area::-webkit-scrollbar-thumb {
+    background: #000000; /* Kaydırma kolu rengi */
+}
+
+#tag_area::-webkit-scrollbar-thumb:hover {
+    background: #000000; /* Kaydırma kolu rengi (üzerine gelindiğinde) */
+}
+
+
+.save_btn{
+    display: none;
+    width: 3.5em;
+    height: 1.5em;
+    background-color: #f70000;
+    border-radius: 1em;
+    border-width: 0.15em;
+    float: right;
+    margin-right: 3em;
+    font-weight: bolder;
+    font-size: 1.5em;
+}
+
+
+.join_date{
+    text-align: end;
+    margin-right: 1em;
+}
+
+footer{
+    position: fixed;
+    bottom: 0;
+    background-color: blueviolet;
+    height: 3em;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+}
+footer > * {
+    margin: 1em;
+    color: black;
+}
+a:active{
+    color: black;
+}

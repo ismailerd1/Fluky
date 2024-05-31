@@ -1,0 +1,97 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'account/myprofile.css' %}">
+    <title>Fluky</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <script src="{% static 'account/myprofile.js' %}"></script>
+    {% if is_owner %}
+    <a href="{% url 'settings' %}"><div class="setting_icon">⚙️</div></a>
+    {% endif %}
+    <div class="pp">
+        <img class="pp1" src="{{ user.profile_picture.url }}" >
+        <button class="update_btn" onclick="updateppmode()">Update image</button>
+
+        <div class="update_sec">
+        <form method="POST" class="file_input" enctype="multipart/form-data" action="{% url 'update_profile_picture' %}">
+            {% csrf_token %}
+
+            <input type="file" name="profile_picture" accept="image/*" id="file-input" style="display: none;">
+           
+            <label for="file-input" class="custom_label">Choose photo</label>
+            <button class="sub_btn" type="submit">Save</button>
+        </form>
+
+        </div>
+        <form method="POST" action="{% url 'delete_profile_picture' %}">
+            {% csrf_token %}
+            <button class="delete_btn" type="submit">Delete image</button>
+        </form>
+    </div>
+    <hr id="hrs">
+    <div class="first_sec">
+        <div class="story_sec"><p></p></div>
+        <div class="tex">
+            <h1>{{ user.user.username }}</h1> 
+            <h4 class="last_seen">Last seen: {{user.user.last_login}}</h4>
+        </div>
+        {% if is_owner %}
+        <div class="edit_icon" onclick="enterEditMode()"></div>
+        {% endif %}
+        {% if not is_owner %}
+        <a href="{% url 'private_chat' user.user.id %}" class="chat_link"></a>
+        {% endif %}
+        <div class="share_icon"></div>
+    </div>
+    <hr id="hrs">
+   {% comment %}  <a href="{% url 'private_chat' user_id=3 %}">Birebir Sohbet Başlat</a> {% endcomment %}
+
+
+    <div class="about">
+        <div class="mybio">{{ mybio }}</div>
+        <div class="mytags">{{ mytags }}</div>
+    </div>
+
+
+    <form method="POST">
+        {% csrf_token %}
+    <div class="hidden_about">
+        <div class="hidden_mybio"><textarea name="biography" id="input_area" placeholder="My biogrpahy:"></textarea></div>
+        <div class="hidden_mytags"><textarea name="tags" id="tag_area" placeholder="My tags:"></textarea> </div>
+    </div>
+
+    <button type="submit" class="save_btn">Save</button>
+
+
+    </form>
+
+    <br><br>
+
+    <div class="join_date">Join at: {{user.user.date_joined |date:"d/m/Y"}}</div>
+    <br><br><br><br><br>
+</body>
+<footer>
+    <a href="{% url 'random_chat_enter' %}">❃</a>
+    <a href="{% url 'mychats' %}">❉</a>
+    <a href="{% url 'home' %}">✶</a>
+    <a href="#">✻</a>
+    <a href="{% url 'profile' request.user.username %}">★</a>
+</footer>
+</html>
+
+
+
+
+
+
+<!-- <h1>Welcome, {{ user.username }}</h1>
+<p>Name: {{ user.first_name }}</p>
+<p>Email: {{ user.email }}</p>
+ -->

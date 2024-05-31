@@ -1,0 +1,157 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: "Cabin", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: weight;
+    font-style: normal;
+    font-variation-settings:
+      "wdth" 100;
+}
+body{
+    background-color: rgb(110, 95, 117) ;
+    background-image: url(bg_img.jpeg);
+    background-size: cover;
+}
+hr{
+    border-color: black;
+}
+
+
+.logo_nav{
+    height: 1.5em;
+    width:100%;
+    background-color: rgb(117, 43, 208);
+    color: black;
+    font-weight: bolder;
+    font-size: 3vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.search_area{
+    width: 100%;
+    height: 3vw;
+    background-color: blueviolet;
+    display: flex;  
+    justify-content: center;  
+    align-items: center;  
+    
+}
+.search_bar{
+    background-color: aquamarine;
+    height: 1vw;
+    border-radius: 1vw;
+    padding: 0.25vw;
+    text-align: center;
+    font-weight: bold;
+}
+#submit_btn{
+    background-color: aquamarine;
+    height: 2vw;
+    border-radius: 1vw;
+    padding: 0.3vw;
+}
+
+.chats{
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+    width: 100%;
+    height: 5vw;
+    background: linear-gradient(to right,blue, purple);
+}
+
+.pp{
+    
+    width: 2.5vw;
+    height: 2.5vw;
+    padding: 0.1vw;
+    border-radius: 2vw;
+    border: 0.1vw solid rgb(0, 0, 0);
+    margin-left: 1.25vw;
+    margin-right: 1.25vw;
+
+}
+
+.tex{
+    flex: 1;
+    height: 4vw;
+}
+#sender{
+    height: 2vw;
+}
+
+#message{
+    font-size: 1.2vw;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1; /* Metnin kaç satıra yayılacağını belirler */
+    overflow: hidden; /* Taşan kısmın gizlenmesini sağlar */
+
+
+}
+
+#status{
+    font-size: 1vw;
+    margin-right: 0.7vw;
+    margin-left: 1vw;
+}
+
+
+
+.transparent{
+    display: block;
+}
+
+
+#send_btn{
+    display: none;
+}
+
+
+footer{
+    position: fixed;
+    bottom: 0;
+    background-color: blueviolet;
+    height: 2.5vw;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+}
+footer > * {
+    margin: 1vw;
+    color: black;
+}
+a:active{
+    color: black;
+}
+
+
+
+@media (max-width: 768px) {
+
+    .search_area{
+        display: none;
+    }
+    .chats{
+        height: 7vw;
+    }
+    #sender {
+        font-size: 2.5vw; /* Daha küçük font boyutu */
+    }
+
+    #message {
+        font-size: 2vw; /* Daha küçük font boyutu */
+        padding-top: 1vw;
+    }
+
+    #status {
+        font-size: 1.2vw; /* Daha küçük font boyutu */
+    }
+
+    /* İsteğe bağlı olarak diğer öğelerin boyutlarını ve stillerini de ayarlayabilirsiniz */
+}

@@ -1,0 +1,56 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'account/register.css'%}">
+    <title>Fluky|Register</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="greeting">
+        <h1 >Welcome fluky</h1>
+        <h1 >Register and start fun!</h1>
+    </div>
+
+    <div class="myform">
+        {% if error %} 
+        <div>
+            <h2 id="errm">{{error}}</h2>
+        </div>
+        {% endif %} 
+        <form method="POST">
+            {% csrf_token %}
+        <label for="name" id="labels">Name:</label>
+        <input type="text" name="name" id="inputs" value="{{name}}" placeholder="Your name">
+        <br><br>
+
+        <label for="username" id="labels">Username:</label>
+        <input type="text" name="username" id="inputs" value="{{username}}" placeholder="Your username">
+        <br><br>
+
+        <label for="email" id="labels">E-mail:</label>
+        <input type="email" name="email" id="inputs" value="{{email}}" placeholder="Your E-mail">
+        <br><br>
+
+        <label for="password" id="labels">Password:</label>
+        <input type="password" name="password" id="inputs" placeholder="Your password">
+        <br><br>
+
+        <label for="re_password" id="labels">Password (again):</label>
+        <input type="password" name="re_password" id="inputs" placeholder="Your password again">
+        <br><br>
+
+        <input type="submit" value='Register'  id="logbtn">
+        </form>
+        <br><br><br>
+        <div>
+            <a href="{% url 'login' %}" id="login_btn">Login</a>
+        </div>
+        </div>
+    
+</body>
+</html>

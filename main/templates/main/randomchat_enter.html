@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fluky | Random chat</title>
+    <link rel="stylesheet" href="{% static 'main/randomchat_enter.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="header">
+        <div class="back_icon">←</div>
+        <div class="title">Fluky</div>
+    </div>
+
+    <h1 class="sec1">Random Chat</h1>
+
+
+    <h2 class="intro">Meet with new people!</h2>
+
+    <a  href="{% url 'random_chat' %}" class="start_btn">Start chat!</a>
+
+
+    
+</body>
+<br><br><br>
+<footer>
+    <a href="{% url 'random_chat_enter' %}">❃</a>
+    <a href="{% url 'mychats' %}">❉</a>
+    <a href="{% url 'home' %}">✶</a>
+    <a href="#">✻</a>
+    <a href="{% url 'profile' request.user.username %}">★</a>
+</footer>
+</html>
+<script>
+    document.querySelector('.back_icon').addEventListener('click',function(){
+        window.history.back();
+    })
+</script>

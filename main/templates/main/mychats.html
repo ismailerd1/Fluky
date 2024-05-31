@@ -1,0 +1,89 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My chats</title>
+    <link rel="stylesheet" href="{% static 'main/mychats.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+
+</head>
+<body>
+    <div class="logo_nav">Fluky</div>
+    <div class="search_area">
+        <form method="POST">
+            {% csrf_token %}
+            <input type="text" class="search_bar" name="search_query" placeholder="Search your chats...">
+            <button id="submit_btn" type="submit">Search</button>
+            </form> 
+    </div>
+
+    <div class="container">
+
+        <hr>
+
+            {% for message in messages %}
+            <div class="chats" onclick="window.location.href='{% url 'private_chat' message.sender.id %}'">
+                {% comment %} <div class="pp"></div> {% endcomment %}
+                <img src="{{ message.sender.customuser.profile_picture.url }}" alt="pp" class="pp">
+                <div class="tex">
+                <h2 id="sender">{{ message.sender }} </h2>
+                <p id="message"> {{ message.content }}</p>
+                </div>
+                <h4 id="status">{{ message.timestamp }}</h4>
+                
+            </div>
+            <hr>
+            {% endfor %}
+        
+        <div class="chats">
+            <div class="pp"></div>
+            <div class="tex">
+                <h2 id="sender">AndyG</h2>
+                <p id="message">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptatibus accusantium corporis quibusdam, qui fugit maiores porro vero accusamus eum numquam dolor dicta minima quasi temporibus ipsum repudiandae distinctio voluptatem iste!</p>
+            </div>
+            <h4 id="status">Seen at 13.44</h3>
+        </div>
+        <hr>
+        <div class="chats">
+            <div class="pp"></div>
+            <div class="tex">
+                <h2 id="sender">Tony M.</h2>
+                <p id="message">Hey man! How are you doing? We could not see each other for a long time </p>
+            </div>
+            <h4 id="status">Seen at 13.44</h3>
+        </div>
+        <hr>
+
+
+        </div>
+        <hr>
+        
+
+
+    </div>
+    
+
+
+
+</body>
+<br><br><br>
+<footer>
+    <a href="{% url 'random_chat_enter' %}">❃</a>
+    <a href="{% url 'mychats' %}">❉</a>
+    <a href="{% url 'home' %}">✶</a>
+    <a href="#">✻</a>
+    <a href="{% url 'profile' request.user.username %}">★</a>
+</footer>
+</html>
+
+
+
+
+
+
+
+

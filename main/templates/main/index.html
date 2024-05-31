@@ -1,0 +1,148 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Chat</title>
+    <link rel="stylesheet" href="{% static 'main/random_chat.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="header">
+        <div class="back_icon">←</div>
+        <div class="title">Anonymous Chat</div>
+        <div class="end_chat">End chat</div>
+        <div class="new_chat">New chat</div>
+        
+    </div>
+
+    <div id="chat_log"></div>
+    <br>
+
+    <div class="message_section">
+
+    <input id="message_input" type="text">
+    
+    <input id="send_button" type="button" value="Send">
+
+    </div>
+
+
+    <script>
+        const messageSection = document.querySelector('.messageSection')
+        const send_button = document.querySelector('#send_button')
+        const chatLog = document.querySelector('#chat_log');
+        const message_input = document.querySelector('#message_input')
+        const endchat_btn = document.querySelector('.end_chat')
+        const newchat_btn = document.querySelector('.new_chat')
+
+        let url = `ws://${window.location.host}/ws/socket-server/`
+
+        const chatSocket = new WebSocket(url)
+
+        chatSocket.onmessage = function(e){
+            const data = JSON.parse(e.data)
+            if (data.type === 'chat'){   
+                const messageElement = document.createElement('div');
+                messageElement.innerText = data.message;
+                messageElement.classList.add('message');
+                    if (data.sender_username === '{{ request.user.username }}') {
+                        messageElement.classList.add('sent');
+                    } 
+                    else {
+                        messageElement.classList.add('received');
+                    }
+                    messageElement.innerHTML = `<strong>${data.message}</strong><br> `;
+
+
+                chatLog.appendChild(messageElement);
+                chatLog.scrollTop = chatLog.scrollHeight;
+       
+        }
+            else if(data.type === 'end_chat'){
+                const chatend_message = document.createElement('div');
+                chatend_message.innerText = data.message;
+                chatend_message.classList.add('end_message');
+                chatLog.appendChild(chatend_message);
+                message_input.disabled = true;
+                endchat_btn.style.display= 'none';
+                newchat_btn.style.display= 'flex';
+
+            }
+    
+        };
+
+        chatSocket.onclose = function(e){
+            console.error('chatsocket closed suddenly!');
+            message_input.disabled = true;
+        };
+
+        message_input.focus();
+        message_input.onkeyup = function(e) {
+            if (e.key === 'Enter') { 
+                send_button.click();
+            }
+        };
+
+        send_button.onclick = function(e){
+            const message = message_input.value.trim();
+            const sender_username = '{{ request.user.username }}';
+            if (message !== ''){
+                chatSocket.send(JSON.stringify({
+                    'message':message,
+                    'sender_username': sender_username ,
+                    //'receiver_username': '{{ target_username }}',
+                }))
+            };
+            message_input.value = '';
+            send_button.style.display = 'none'
+        
+
+        };
+        send_button.style.display = 'none'
+        message_input.addEventListener('input', function() {
+        if (message_input.value.trim() === '') {
+            send_button.style.display ='none';
+        }   
+        else {
+            send_button.style.display ='block';
+        }
+        });
+
+
+        document.querySelector('.back_icon').addEventListener('click',function(){
+            window.history.back();
+        });
+
+
+        endchat_btn.addEventListener('click',function(){
+
+            chatSocket.close();
+            endchat_btn.style.display= 'none';
+            newchat_btn.style.display= 'flex';
+
+
+        });
+         newchat_btn.addEventListener('click',function(){
+
+            window.location.reload();
+            endchat_btn.style.display= 'flex';
+            newchat_btn.style.display= 'none';
+
+
+        });
+
+
+
+
+
+
+
+    </script>
+
+</body>
+
+</html>
