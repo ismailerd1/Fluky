@@ -1,3 +1,4 @@
+## Introduction
 Fluky is a real-time chat application built using Django, HTML, CSS, and JavaScript. It enables instant messaging between users, providing a fast and efficient communication experience with modern web technologies.
 
 
